@@ -1,0 +1,65 @@
+mirc=read.csv("RandomMIRSamplingC.csv")
+mirw=read.csv("RandomMIRSamplingW.csv")
+
+library(ggplot2)
+ggplot(mirw,aes(MIR0,Relative_Error_Absolute,color=p))+
+  geom_jitter()+
+  scale_fill_gradientn(colours=rainbow(5))
+
+ggplot(mirc,aes(TrapDensity,Relative_Error_Absolute,color=County))+
+  geom_jitter()+
+  scale_fill_gradientn(colours=rainbow(5))
+
+library(fitdistrplus)
+
+hist(mirw$Relative_Error_Absolute[which(mirw$p==90&mirw$Relative_Error_Absolute!=0)])
+descdist(mirw$Relative_Error_Absolute[which(mirw$p==90&mirw$Relative_Error_Absolute!=0)],boot = 1000)
+w90=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==90&mirw$Relative_Error_Absolute!=0)],"weibull")
+g90=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==90&mirw$Relative_Error_Absolute!=0)],"gamma")
+l90=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==90&mirw$Relative_Error_Absolute!=0)],"lnorm")
+par(mfrow = c(2, 2))
+plot.legend <- c("Weibull", "lognormal", "gamma")
+denscomp(list(w90, l90, g90), legendtext = plot.legend)
+qqcomp(list(w90, l90, g90), legendtext = plot.legend)
+cdfcomp(list(w90, l90, g90), legendtext = plot.legend)
+ppcomp(list(w90, l90, g90), legendtext = plot.legend)
+
+w80=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==80)],"weibull")
+g80=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==80)],"gamma")
+l80=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==80)],"lnorm")
+par(mfrow = c(2, 2))
+plot.legend <- c("Weibull", "lognormal", "gamma")
+denscomp(list(w80, l80, g80), legendtext = plot.legend)
+qqcomp(list(w80, l80, g80), legendtext = plot.legend)
+cdfcomp(list(w80, l80, g80), legendtext = plot.legend)
+ppcomp(list(w80, l80, g80), legendtext = plot.legend)
+
+w70=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==70)],"weibull")
+g70=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==70)],"gamma")
+l70=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==70)],"lnorm")
+par(mfrow = c(2, 2))
+plot.legend <- c("Weibull", "lognormal", "gamma")
+denscomp(list(w70, l70, g70), legendtext = plot.legend)
+qqcomp(list(w70, l70, g70), legendtext = plot.legend)
+cdfcomp(list(w70, l70, g70), legendtext = plot.legend)
+ppcomp(list(w70, l70, g70), legendtext = plot.legend)
+
+# w60=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==60)],"weibull")
+# g60=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==60)],"gamma")
+# l60=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==60)],"lnorm")
+# par(mfrow = c(2, 2))
+# plot.legend <- c("Weibull", "lognormal", "gamma")
+# denscomp(list(w60, l60, g60), legendtext = plot.legend)
+# qqcomp(list(w60, l60, g60), legendtext = plot.legend)
+# cdfcomp(list(w60, l60, g60), legendtext = plot.legend)
+# ppcomp(list(w60, l60, g60), legendtext = plot.legend)
+# 
+# w50=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==50)],"weibull")
+# g50=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==50)],"gamma")
+# l50=fitdist(mirw$Relative_Error_Absolute[which(mirw$p==50)],"lnorm")
+# par(mfrow = c(2, 2))
+# plot.legend <- c("Weibull", "lognormal", "gamma")
+# denscomp(list(w50, l50, g50), legendtext = plot.legend)
+# qqcomp(list(w50, l50, g50), legendtext = plot.legend)
+# cdfcomp(list(w50, l50, g50), legendtext = plot.legend)
+# ppcomp(list(w50, l50, g50), legendtext = plot.legend)
